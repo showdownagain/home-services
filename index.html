@@ -1,9 +1,10 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Server Services</title>
+    <title>Handle It</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -14,9 +15,27 @@
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            transition: background-image 0.5s ease;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(245, 245, 245, 0.5);
+            z-index: 0;
         }
 
         .container {
+            position: relative;
+            z-index: 1;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
@@ -26,15 +45,20 @@
         h1 {
             text-align: center;
             color: #2c3e50;
-            font-weight: 300;
+            font-weight: 400;
             margin-bottom: 3rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             justify-items: center;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .service-card {
@@ -46,11 +70,16 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .service-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .service-card:hover .service-actions {
+            display: flex;
         }
 
         .service-icon {
@@ -73,6 +102,8 @@
         }
 
         footer {
+            position: relative;
+            z-index: 1;
             text-align: center;
             padding: 1rem;
             background-color: #2c3e50;
@@ -84,15 +115,144 @@
             text-decoration: none;
             color: inherit;
         }
+
+        .wallpaper-info {
+            display: none;
+        }
+
+        .action-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .action-buttons button {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .action-buttons button:hover {
+            background: #34495e;
+        }
+
+        /* 添加背景设置模态框样式 */
+        #bgModal .modal-content {
+            max-width: 400px;
+        }
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 3;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            margin: 10% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .service-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .service-form input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .service-form button {
+            padding: 10px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* 服务卡片的操作按钮容器 */
+        .service-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            gap: 5px;
+        }
+
+        .service-action-btn {
+            padding: 5px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .service-action-btn:hover {
+            opacity: 1;
+        }
+
+        .service-action-btn.edit {
+            background: #27ae60;
+        }
+
+        .service-action-btn.delete {
+            background: #c0392b;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .cancel-btn {
+            background: #95a5a6 !important;
+        }
+
+        .cancel-btn:hover {
+            background: #7f8c8d !important;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Home Server Services</h1>
+        <h1>Handle It</h1>
         <div class="services-grid">
             <a href="http://nutkiller.us.kg:1989" target="_blank">
                 <div class="service-card">
-                    <img src="https://www.technologytalker.com/wp-content/uploads/2023/12/Next-Cloud.jpg" alt="Nextcloud" class="service-icon">
+                    <img src="http://pic.9663.com/upload/2023-10/20231091543551871.png" alt="Nextcloud" class="service-icon">
                     <h2 class="service-name">Nextcloud</h2>
                     <p class="service-description">Personal cloud storage and collaboration platform</p>
                 </div>
@@ -116,7 +276,308 @@
         </div>
     </div>
     <footer>
-        <p>© 2024 Home Server Services</p>
+        <p>© 2024 Handle It</p>
     </footer>
+
+    <div class="action-buttons">
+        <button onclick="openModal('service')">添加服务</button>
+        <button onclick="openModal('background')">设置背景</button>
+    </div>
+
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">添加新服务</h2>
+            <form class="service-form" onsubmit="addService(event)">
+                <input type="text" id="serviceName" placeholder="服务名称" required>
+                <input type="url" id="serviceUrl" placeholder="服务链接" required>
+                <input type="url" id="serviceIcon" placeholder="图标URL" required>
+                <input type="text" id="serviceDesc" placeholder="服务描述" required>
+                <div class="form-buttons">
+                    <button type="submit" id="submitBtn">添加</button>
+                    <button type="button" onclick="closeModal()" class="cancel-btn">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="bgModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeBgModal()">&times;</span>
+            <h2>设置背景图片</h2>
+            <form class="service-form" onsubmit="saveBackground(event)">
+                <input type="url" id="bgImageUrl" placeholder="输入背景图片URL" required>
+                <div class="form-buttons">
+                    <button type="submit">保存</button>
+                    <button type="button" onclick="resetBackground()" class="cancel-btn">重置</button>
+                    <button type="button" onclick="closeBgModal()" class="cancel-btn">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 从本地存储加载背景图片
+        function loadSavedBackground() {
+            const savedBg = localStorage.getItem('customBackground');
+            if (savedBg) {
+                document.body.style.backgroundImage = `url(${savedBg})`;
+                document.getElementById('bgImageUrl').value = savedBg;
+            }
+        }
+
+        // 设置自定义背景
+        function setCustomBackground() {
+            const imageUrl = document.getElementById('bgImageUrl').value.trim();
+            if (imageUrl) {
+                const img = new Image();
+                img.onload = function() {
+                    document.body.style.backgroundImage = `url(${imageUrl})`;
+                    localStorage.setItem('customBackground', imageUrl);
+                };
+                img.onerror = function() {
+                    alert('图片加载失败，请检查URL是否正确');
+                };
+                img.src = imageUrl;
+            }
+        }
+
+        // 重置背景
+        function resetBackground() {
+            document.body.style.backgroundImage = 'none';
+            document.body.style.backgroundColor = '#f5f5f5';
+            document.getElementById('bgImageUrl').value = '';
+            localStorage.removeItem('customBackground');
+        }
+
+        // 页面加载时加载保存的背景
+        window.addEventListener('load', loadSavedBackground);
+
+        // 从本地存储加载服务列表
+        function loadServices() {
+            const services = JSON.parse(localStorage.getItem('services') || '[]');
+            const grid = document.querySelector('.services-grid');
+            
+            // 清除现有的动态添加的服务
+            const existingServices = grid.querySelectorAll('a:not([href*="nutkiller.us.kg"])');
+            existingServices.forEach(service => service.remove());
+            
+            // 添加保存的服务
+            services.forEach((service, index) => {
+                grid.appendChild(createServiceCard(service, index));
+            });
+        }
+
+        // 创建服务卡片
+        function createServiceCard(service, index) {
+            const a = document.createElement('a');
+            a.href = service.url;
+            a.target = '_blank';
+
+            const card = document.createElement('div');
+            card.className = 'service-card';
+            
+            // 先创建卡片内容
+            card.innerHTML = `
+                <img src="${service.icon}" alt="${service.name}" class="service-icon">
+                <h2 class="service-name">${service.name}</h2>
+                <p class="service-description">${service.description}</p>
+            `;
+            
+            // 添加操作按钮
+            const actions = document.createElement('div');
+            actions.className = 'service-actions';
+            actions.innerHTML = `
+                <button type="button" class="service-action-btn edit">编辑</button>
+                <button type="button" class="service-action-btn delete">删除</button>
+            `;
+            
+            // 添加事件监听器
+            actions.querySelector('.edit').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const services = JSON.parse(localStorage.getItem('services') || '[]');
+                if (services[index]) {
+                    editService(e, index, services[index]);
+                }
+            });
+            
+            actions.querySelector('.delete').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                deleteService(e, index);
+            });
+
+            card.appendChild(actions);
+            a.appendChild(card);
+            return a;
+        }
+
+        // 添加新服务
+        function addService(event) {
+            event.preventDefault();
+            
+            const service = {
+                name: document.getElementById('serviceName').value,
+                url: document.getElementById('serviceUrl').value,
+                icon: document.getElementById('serviceIcon').value,
+                description: document.getElementById('serviceDesc').value
+            };
+
+            // 保存到本地存储
+            const services = JSON.parse(localStorage.getItem('services') || '[]');
+            services.push(service);
+            localStorage.setItem('services', JSON.stringify(services));
+
+            // 重新加载服务列表
+            loadServices();
+
+            // 关闭模态框并重置表单
+            closeModal();
+            event.target.reset();
+        }
+
+        // 打开模态框
+        function openModal(type) {
+            if (type === 'service') {
+                const modal = document.getElementById('serviceModal');
+                modal.style.display = 'block';
+                
+                if (document.getElementById('submitBtn').textContent !== '保存') {
+                    const form = document.querySelector('.service-form');
+                    form.reset();
+                    form.onsubmit = addService;
+                    document.getElementById('modalTitle').textContent = '添加新服务';
+                    document.getElementById('submitBtn').textContent = '添加';
+                }
+            } else if (type === 'background') {
+                const modal = document.getElementById('bgModal');
+                modal.style.display = 'block';
+                // 显示当前背景URL
+                const currentBg = localStorage.getItem('customBackground');
+                if (currentBg) {
+                    document.getElementById('bgImageUrl').value = currentBg;
+                }
+            }
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            const modal = document.getElementById('serviceModal');
+            modal.style.display = 'none';
+            
+            // 重置表单为添加模式
+            const form = document.querySelector('.service-form');
+            form.reset();
+            form.onsubmit = addService;
+            document.getElementById('modalTitle').textContent = '添加新服务';
+            document.getElementById('submitBtn').textContent = '添加';
+        }
+
+        // 页面加载时加载服务
+        window.addEventListener('load', loadServices);
+
+        // 删除服务
+        function deleteService(event, index) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            if (confirm('确定要删除这个服务吗？')) {
+                const services = JSON.parse(localStorage.getItem('services') || '[]');
+                services.splice(index, 1);
+                localStorage.setItem('services', JSON.stringify(services));
+                loadServices();  // 重新加载服务列表
+            }
+        }
+
+        // 编辑服务
+        function editService(event, index, service) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            if (!service) {
+                console.error('Service not found');
+                return;
+            }
+            
+            // 填充表单
+            document.getElementById('serviceName').value = service.name;
+            document.getElementById('serviceUrl').value = service.url;
+            document.getElementById('serviceIcon').value = service.icon;
+            document.getElementById('serviceDesc').value = service.description;
+            
+            // 修改模态框标题
+            document.getElementById('modalTitle').textContent = '编辑服务';
+            
+            // 修改表单提交行为
+            const form = document.querySelector('.service-form');
+            form.onsubmit = (e) => updateService(e, index);
+            
+            // 修改提交按钮文字
+            document.getElementById('submitBtn').textContent = '保存';
+            
+            // 打开模态框
+            openModal();
+        }
+
+        // 更新服务
+        function updateService(event, index) {
+            event.preventDefault();
+            
+            const services = JSON.parse(localStorage.getItem('services') || '[]');
+            services[index] = {
+                name: document.getElementById('serviceName').value,
+                url: document.getElementById('serviceUrl').value,
+                icon: document.getElementById('serviceIcon').value,
+                description: document.getElementById('serviceDesc').value
+            };
+            
+            localStorage.setItem('services', JSON.stringify(services));
+            loadServices();
+            
+            // 重置表单
+            const form = document.querySelector('.service-form');
+            form.onsubmit = addService;
+            form.querySelector('button[type="submit"]').textContent = '添加';
+            form.reset();
+            
+            closeModal();
+        }
+
+        // 添加背景模态框关闭函数
+        function closeBgModal() {
+            const modal = document.getElementById('bgModal');
+            modal.style.display = 'none';
+            document.getElementById('bgImageUrl').value = '';
+        }
+
+        // 修改保存背景函数
+        function saveBackground(event) {
+            event.preventDefault();
+            const imageUrl = document.getElementById('bgImageUrl').value.trim();
+            if (imageUrl) {
+                const img = new Image();
+                img.onload = function() {
+                    document.body.style.backgroundImage = `url(${imageUrl})`;
+                    localStorage.setItem('customBackground', imageUrl);
+                    closeBgModal();
+                };
+                img.onerror = function() {
+                    alert('图片加载失败，请检查URL是否正确');
+                };
+                img.src = imageUrl;
+            }
+        }
+
+        // 修改重置背景函数
+        function resetBackground() {
+            if (confirm('确定要重置背景图片吗？')) {
+                document.body.style.backgroundImage = 'none';
+                document.body.style.backgroundColor = '#f5f5f5';
+                localStorage.removeItem('customBackground');
+                closeBgModal();
+            }
+        }
+    </script>
 </body>
 </html> 
